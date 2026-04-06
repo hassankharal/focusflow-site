@@ -11,5 +11,15 @@
       "destination": "https://focusflow.app/$1",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    }
   ]
 }
