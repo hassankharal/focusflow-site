@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.focusflow.app"
+        }
+      ],
+      "destination": "https://focusflow.app/$1",
+      "permanent": true
+    }
+  ]
+}
