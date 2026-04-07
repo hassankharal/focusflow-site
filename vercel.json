@@ -1,17 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.foques.app"
-        }
-      ],
-      "destination": "https://foques.app/$1",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     {
       "source": "/terms",

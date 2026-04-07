@@ -5,8 +5,8 @@
       <stop offset="1" stop-color="#101a2f" />
     </linearGradient>
     <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#4da4ff" />
-      <stop offset="1" stop-color="#40d0e7" />
+      <stop offset="0" stop-color="#00b8ff" />
+      <stop offset="1" stop-color="#26f4c9" />
     </linearGradient>
     <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="24" />
@@ -14,8 +14,8 @@
   </defs>
 
   <rect width="1200" height="630" fill="url(#bg)" />
-  <circle cx="190" cy="90" r="140" fill="#2b66ca" opacity="0.26" filter="url(#blur)" />
-  <circle cx="1020" cy="120" r="120" fill="#40d0e7" opacity="0.19" filter="url(#blur)" />
+  <circle cx="190" cy="90" r="140" fill="#008bff" opacity="0.26" filter="url(#blur)" />
+  <circle cx="1020" cy="120" r="120" fill="#26f4c9" opacity="0.19" filter="url(#blur)" />
 
   <rect x="85" y="95" width="1030" height="440" rx="34" fill="#0d1528" opacity="0.92" stroke="#2a3f65" />
 
