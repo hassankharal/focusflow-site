@@ -1,6 +1,6 @@
-# FocusFlow Launch Site
+# Foques Launch Site
 
-Static-first launch website for FocusFlow with a real waitlist backend:
+Static-first launch website for Foques with a real waitlist backend:
 - static HTML/CSS/JS frontend
 - Vercel serverless API endpoints
 - Supabase database for waitlist + founding-offer qualification
@@ -26,7 +26,7 @@ Static-first launch website for FocusFlow with a real waitlist backend:
 ## Local Preview (Static UI)
 
 ```bash
-cd /Users/hassankharal/Downloads/focusflow-site
+cd /path/to/foques-site
 python3 -m http.server 8080
 ```
 
@@ -40,7 +40,7 @@ Open:
 Use Vercel local runtime for `/api/*`:
 
 ```bash
-cd /Users/hassankharal/Downloads/focusflow-site
+cd /path/to/foques-site
 npx vercel dev
 ```
 
@@ -100,7 +100,7 @@ Never expose `SUPABASE_SERVICE_ROLE_KEY` in client-side code.
 
 ## Analytics (Plausible)
 
-Frontend loads Plausible for domain `focusflow.app`.
+Frontend loads Plausible for domain `foques.app`.
 Events fired:
 - `Hero CTA Click`
 - `Final CTA Click`
@@ -133,12 +133,12 @@ Post-deploy checks:
 - `/privacy`
 - `/api/waitlist-status`
 
-## Custom Domain: `focusflow.app`
+## Custom Domain: `foques.app`
 
 1. Vercel project -> **Settings** -> **Domains**.
-2. Add `focusflow.app`.
-3. Add `www.focusflow.app`.
-4. Set `focusflow.app` as primary.
+2. Add `foques.app`.
+3. Add `www.foques.app`.
+4. Set `foques.app` as primary.
 5. Configure DNS records shown by Vercel.
 6. Confirm `www` redirects to apex (configured in `vercel.json`).
 
@@ -150,6 +150,11 @@ Website hosting should be done via **Vercel** (or similar static + serverless ho
 
 iCloud custom domain email can remain separate from website hosting.
 Website can stay on Vercel while email runs on iCloud.
+
+## Brand Emails
+
+- Primary contact: `hello@foques.app`
+- Support email: `support@foques.app`
 
 ## Test Duplicate Email Behavior
 
@@ -187,7 +192,7 @@ order by signup_rank asc;
 1. Run SQL schema/functions in Supabase.
 2. Set Vercel environment variables.
 3. Deploy to Vercel production.
-4. Connect/verify domains (`focusflow.app`, `www`).
+4. Connect/verify domains (`foques.app`, `www`).
 5. Verify Plausible events and waitlist conversion flow.
 
 ## Quick QA Checklist

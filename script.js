@@ -239,7 +239,7 @@
         body: JSON.stringify({
           email,
           company,
-          source: "focusflow-landing",
+          source: "foques-landing",
           metadata: {
             page: window.location.pathname,
             utm_source: attribution.utm.utm_source || null,

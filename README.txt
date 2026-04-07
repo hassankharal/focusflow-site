@@ -1,4 +1,4 @@
-FOCUSFLOW STATIC SITE
+FOQUES STATIC SITE
 
 Files included:
 - index.html
@@ -16,4 +16,5 @@ Recommended hosting:
 
 Important:
 - The legal pages are starter templates, not legal advice.
-- Replace hello@focusflow.app with your real address once set up.
+- Primary: hello@foques.app
+- Support: support@foques.app

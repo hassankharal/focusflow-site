@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="FocusFlow">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Foques">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#060a14" />
@@ -23,7 +23,7 @@
   <path d="M152 168h34v10h-24v13h18v10h-18v21h-10V168z" fill="#f4f9ff" />
 
   <text x="230" y="198" fill="#f3f7ff" font-family="Avenir Next,Segoe UI,sans-serif" font-size="54" font-weight="700">
-    FocusFlow
+    Foques
   </text>
   <text x="130" y="285" fill="#f7fbff" font-family="Avenir Next,Segoe UI,sans-serif" font-size="58" font-weight="700">
     Protect your attention.
@@ -42,6 +42,6 @@
   </text>
 
   <text x="840" y="490" fill="#9fb7de" font-family="Avenir Next,Segoe UI,sans-serif" font-size="24" text-anchor="end">
-    focusflow.app
+    foques.app
   </text>
 </svg>

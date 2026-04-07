@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://focusflow.app/</loc>
+    <loc>https://foques.app/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://focusflow.app/terms</loc>
+    <loc>https://foques.app/terms</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://focusflow.app/privacy</loc>
+    <loc>https://foques.app/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>

@@ -5,10 +5,10 @@
       "has": [
         {
           "type": "host",
-          "value": "www.focusflow.app"
+          "value": "www.foques.app"
         }
       ],
-      "destination": "https://focusflow.app/$1",
+      "destination": "https://foques.app/$1",
       "permanent": true
     }
   ],

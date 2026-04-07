@@ -1,4 +1,4 @@
--- FocusFlow waitlist schema
+-- Foques waitlist schema
 -- Run this in Supabase SQL Editor.
 
 create table if not exists public.waitlist_signups (
@@ -27,7 +27,7 @@ create index if not exists waitlist_signups_qualifies_idx
 
 alter table public.waitlist_signups enable row level security;
 
-comment on table public.waitlist_signups is 'FocusFlow launch waitlist and founding-offer qualifiers.';
+comment on table public.waitlist_signups is 'Foques launch waitlist and founding-offer qualifiers.';
 
 create or replace function public.waitlist_offer_status(p_limit integer default 25)
 returns table (
@@ -52,7 +52,7 @@ $$;
 create or replace function public.signup_waitlist(
   p_email text,
   p_name text default null,
-  p_source text default 'focusflow-landing',
+  p_source text default 'foques-landing',
   p_metadata jsonb default '{}'::jsonb,
   p_honeypot text default null,
   p_limit integer default 25

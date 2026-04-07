@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://focusflow.app/sitemap.xml
+Sitemap: https://foques.app/sitemap.xml

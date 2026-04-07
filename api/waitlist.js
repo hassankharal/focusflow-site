@@ -79,7 +79,7 @@ module.exports = async function handler(req, res) {
   const email = normalizeEmail(body.email);
   const name = String(body.name || "").trim();
   const honeypot = String(body.company || "").trim();
-  const source = String(body.source || "focusflow-landing").trim();
+  const source = String(body.source || "foques-landing").trim();
   const metadata = normalizeMetadata(body.metadata);
 
   if (honeypot) {
@@ -119,7 +119,7 @@ module.exports = async function handler(req, res) {
     const result = await callSupabaseRpc("signup_waitlist", {
       p_email: email,
       p_name: name || null,
-      p_source: source || "focusflow-landing",
+      p_source: source || "foques-landing",
       p_metadata: metadata,
       p_honeypot: null,
       p_limit: limit
