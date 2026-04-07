@@ -1,25 +1,29 @@
 # FocusFlow Launch Site
 
-Static-first marketing website for FocusFlow with a real waitlist backend:
+Static-first launch website for FocusFlow with a real waitlist backend:
 - static HTML/CSS/JS frontend
 - Vercel serverless API endpoints
 - Supabase database for waitlist + founding-offer qualification
+- Plausible analytics for conversion events
 
 ## Project Structure
 
-- `index.html` - Primary launch/marketing page
-- `styles.css` - Shared premium dark theme and responsive layout
-- `script.js` - Countdown + waitlist form + dynamic founding-offer counter
+- `index.html` - Primary launch page
+- `styles.css` - Shared premium dark UI system and responsive layout
+- `script.js` - Countdown, waitlist UX, launch-state switching, analytics events
 - `terms.html` - Terms page
 - `privacy.html` - Privacy page
-- `favicon.svg` - Site icon
-- `api/waitlist.js` - Waitlist submission endpoint (server-side qualification)
-- `api/waitlist-status.js` - Current spots/offer-status endpoint
+- `favicon.svg` - Browser icon
+- `og-image.svg` - Open Graph image
+- `robots.txt` - Search crawler directives
+- `sitemap.xml` - Crawl sitemap
+- `api/waitlist.js` - Waitlist submission endpoint
+- `api/waitlist-status.js` - Spots remaining / offer status endpoint
 - `api/_lib/supabase.js` - Shared API utilities
-- `supabase/schema.sql` - Database schema + SQL functions
-- `vercel.json` - `www` redirect + clean legal rewrites (`/terms`, `/privacy`)
+- `supabase/schema.sql` - Supabase schema + SQL functions
+- `vercel.json` - `www` redirect + clean rewrites for `/terms` and `/privacy`
 
-## Local Preview (Static Only)
+## Local Preview (Static UI)
 
 ```bash
 cd /Users/hassankharal/Downloads/focusflow-site
@@ -31,11 +35,9 @@ Open:
 - `http://localhost:8080/terms.html`
 - `http://localhost:8080/privacy.html`
 
-This verifies layout/copy/navigation only.
-
 ## Local Testing With API Endpoints
 
-For full end-to-end waitlist testing, run with Vercel local dev so `/api/*` routes are active:
+Use Vercel local runtime for `/api/*`:
 
 ```bash
 cd /Users/hassankharal/Downloads/focusflow-site
@@ -49,28 +51,28 @@ Then open:
 ## Countdown Logic
 
 - Launch target is **July 1, 2026 at 00:00 America/Winnipeg**.
-- In code this is set to `2026-07-01T05:00:00Z` (Winnipeg midnight in CDT).
+- In code, target timestamp is `2026-07-01T05:00:00Z`.
 - `script.js` updates days/hours/minutes/seconds every second.
-- On/after launch, countdown hides and a release-state message is shown.
-- QA override: append `?launchTs=<unix-ms>` to test near-future or post-launch states locally.
+- On/after launch, countdown hides and release-state UI appears.
+- QA override: append `?launchTs=<unix-ms>` to force pre/post launch states.
 
 ## Founding Offer Logic (First 25)
 
-- Offer: first **25 unique** signups get **1 year free**.
-- Unique identity uses `normalized_email` (`trim + lowercase`) stored server-side.
-- Qualification is decided server-side in SQL (`signup_waitlist` function), not in browser code.
-- Duplicate signups are detected and return a duplicate response.
-- `spots_remaining` is clamped and never goes below zero.
+- Offer: first **25 unique** signups receive **1 year free**.
+- Unique identity is `normalized_email` (`trim + lowercase`) server-side.
+- Qualification is computed server-side in SQL (`signup_waitlist`), not in browser code.
+- Duplicate emails are gracefully handled.
+- Spots remaining is clamped and never negative.
 
 ## Supabase Setup
 
 1. Create a Supabase project.
 2. Open **SQL Editor**.
 3. Run `supabase/schema.sql`.
-4. Confirm table and functions exist:
-   - `waitlist_signups`
-   - `signup_waitlist(...)`
-   - `waitlist_offer_status(...)`
+4. Confirm these objects exist:
+   - table: `waitlist_signups`
+   - function: `signup_waitlist(...)`
+   - function: `waitlist_offer_status(...)`
 
 ## Database Schema Notes
 
@@ -80,78 +82,121 @@ Then open:
 - `full_name` (optional)
 - `source` (optional)
 - `metadata` (jsonb)
-- `signup_rank` (deterministic order)
+- `signup_rank` (deterministic sequence)
 - `qualifies_free_year` (boolean)
 - `created_at`
 
-The SQL function uses advisory locking to keep rank/qualification deterministic during concurrency.
+`signup_waitlist(...)` uses advisory locking to keep rank + qualification fair under concurrency.
 
 ## Required Environment Variables
 
 Set in Vercel Project Settings -> Environment Variables:
 
-- `SUPABASE_URL` - Your Supabase project URL
-- `SUPABASE_SERVICE_ROLE_KEY` - Service role key (server only)
-- `WAITLIST_FREE_YEAR_LIMIT` - Optional, defaults to `25`
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `WAITLIST_FREE_YEAR_LIMIT` (optional, defaults to `25`)
 
-Do not expose `SUPABASE_SERVICE_ROLE_KEY` in client-side code.
+Never expose `SUPABASE_SERVICE_ROLE_KEY` in client-side code.
+
+## Analytics (Plausible)
+
+Frontend loads Plausible for domain `focusflow.app`.
+Events fired:
+- `Hero CTA Click`
+- `Final CTA Click`
+- `Waitlist Submit Attempt`
+- `Waitlist Submit Success`
+- `Waitlist Duplicate`
+- `Founding Offer Claimed`
+- `Founding Offer Missed`
+- `Waitlist Submit Error`
+
+UTM params are captured and sent in waitlist metadata:
+- `utm_source`
+- `utm_medium`
+- `utm_campaign`
+- `utm_content`
+- `utm_term`
 
 ## Deploy to Vercel
 
-1. Push repository to GitHub.
-2. In Vercel: **Add New Project** -> import this repo.
-3. Framework preset: keep default (`Other`/static).
-4. Build/install/output settings: leave empty.
-5. Add required environment variables.
+1. Push to GitHub.
+2. In Vercel: **Add New Project** -> import repo.
+3. Framework preset: leave as static/other.
+4. Build/install/output settings: keep empty.
+5. Add required env vars.
 6. Deploy.
 
-After deploy, test:
+Post-deploy checks:
 - `/`
-- `/terms` and `/privacy`
+- `/terms`
+- `/privacy`
 - `/api/waitlist-status`
 
-## Connect Custom Domain (`focusflow.app`)
+## Custom Domain: `focusflow.app`
 
 1. Vercel project -> **Settings** -> **Domains**.
 2. Add `focusflow.app`.
 3. Add `www.focusflow.app`.
 4. Set `focusflow.app` as primary.
-5. Apply DNS records from Vercel at your registrar.
-6. Confirm `www` redirects to apex (handled by `vercel.json`).
+5. Configure DNS records shown by Vercel.
+6. Confirm `www` redirects to apex (configured in `vercel.json`).
 
 ## Hosting Note
 
-Website hosting should run on **Vercel** (or similar static+serverless host).
+Website hosting should be done via **Vercel** (or similar static + serverless host).
 
-## Email Note (iCloud)
+## iCloud Email Note
 
-Custom-domain email (for example iCloud custom email) is separate from website hosting.
-You can keep website on Vercel and email on iCloud domain email without conflict.
+iCloud custom domain email can remain separate from website hosting.
+Website can stay on Vercel while email runs on iCloud.
 
 ## Test Duplicate Email Behavior
 
-1. Submit a new email via waitlist form.
-2. Submit same email again.
-3. Expected: API returns `duplicate: true` and UI shows "already on the waitlist" state.
+1. Submit a new email in waitlist form.
+2. Submit the same email again.
+3. Expect duplicate response and "already on the waitlist" message.
 
 ## Test Fully-Claimed Promo State
 
-Option A (real):
-1. Insert or submit until 25 unique qualifying signups exist.
-2. Submit the 26th unique email.
-3. Expected: signup succeeds, `qualified_for_free_year: false`, and spots show `0`.
+Option A (real data):
+1. Reach 25 qualifying unique signups.
+2. Submit 26th unique email.
+3. Expect signup success with `qualified_for_free_year=false` and `spots_remaining=0`.
 
-Option B (temporary lower limit for staging):
-1. Set `WAITLIST_FREE_YEAR_LIMIT=2` in staging env.
+Option B (staging shortcut):
+1. Set `WAITLIST_FREE_YEAR_LIMIT=2`.
 2. Submit 3 unique emails.
-3. Verify 3rd does not qualify and UI shows fully-claimed state.
+3. Confirm 3rd signup misses founding offer and UI shows claimed state.
+
+## Fairness Validation SQL (Production)
+
+```sql
+select
+  count(*) filter (where qualifies_free_year) as claimed,
+  greatest(0, 25 - count(*) filter (where qualifies_free_year)) as remaining
+from public.waitlist_signups;
+
+select signup_rank, normalized_email, qualifies_free_year, created_at
+from public.waitlist_signups
+order by signup_rank asc;
+```
+
+## Final Release Checklist (Order)
+
+1. Run SQL schema/functions in Supabase.
+2. Set Vercel environment variables.
+3. Deploy to Vercel production.
+4. Connect/verify domains (`focusflow.app`, `www`).
+5. Verify Plausible events and waitlist conversion flow.
 
 ## Quick QA Checklist
 
 - Countdown renders and updates every second.
-- Countdown switches to release-state on/after launch time.
-- Waitlist status fetch updates spots on page load.
-- Waitlist submit handles success/duplicate/error cleanly.
-- Offer spots never show negative values.
+- Release state appears correctly after launch timestamp.
+- Waitlist form works with email-only flow.
+- Success/duplicate/error states are readable and explicit.
+- Spots remaining never goes below zero.
 - Legal pages are readable and linked.
-- Header/footer links work on mobile and desktop.
+- Header/footer/nav are keyboard accessible.
+- Mobile layout is usable at 360px width.

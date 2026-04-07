@@ -8,9 +8,37 @@ const {
 } = require("./_lib/supabase");
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_METADATA_VALUE_LENGTH = 300;
+const ALLOWED_METADATA_KEYS = [
+  "page",
+  "referrer",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term"
+];
 
 function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
+}
+
+function normalizeMetadata(input) {
+  if (!input || typeof input !== "object") {
+    return {};
+  }
+
+  return ALLOWED_METADATA_KEYS.reduce((acc, key) => {
+    const value = input[key];
+
+    if (typeof value === "string" && value.trim() !== "") {
+      acc[key] = value.trim().slice(0, MAX_METADATA_VALUE_LENGTH);
+    } else if (value === null) {
+      acc[key] = null;
+    }
+
+    return acc;
+  }, {});
 }
 
 function parseErrorMessage(error) {
@@ -52,7 +80,7 @@ module.exports = async function handler(req, res) {
   const name = String(body.name || "").trim();
   const honeypot = String(body.company || "").trim();
   const source = String(body.source || "focusflow-landing").trim();
-  const metadata = body.metadata && typeof body.metadata === "object" ? body.metadata : {};
+  const metadata = normalizeMetadata(body.metadata);
 
   if (honeypot) {
     return createJsonResponse(res, 200, {

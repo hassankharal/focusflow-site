@@ -16,11 +16,15 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://focusflow.app/" />
   <meta property="og:site_name" content="FocusFlow" />
+  <meta property="og:image" content="https://focusflow.app/og-image.svg" />
+  <meta property="og:image:alt" content="FocusFlow launch preview" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://focusflow.app/og-image.svg" />
   <meta name="theme-color" content="#060a14" />
   <link rel="canonical" href="https://focusflow.app/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
+  <script defer data-domain="focusflow.app" src="https://plausible.io/js/script.js"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -48,15 +52,15 @@
     <section class="hero section">
       <div class="container hero-layout">
         <div class="hero-copy">
-          <p class="eyebrow">Built for focused people with crowded days</p>
+          <p class="eyebrow">For creators, students, and busy professionals</p>
           <h1>Protect your attention. Finish what matters.</h1>
           <p class="lead">
-            FocusFlow helps you turn scattered tasks into a clear plan, reduce mental clutter,
-            and move through your day with calm momentum.
+            FocusFlow turns scattered tasks into a clear daily plan so you can reduce mental clutter,
+            protect deep work, and keep calm momentum from morning to shutdown.
           </p>
 
           <div class="action-row">
-            <a class="button" href="#waitlist" data-launch-cta data-default-label="Join the waitlist" data-released-label="Get product access">Join the waitlist</a>
+            <a id="hero-primary-cta" class="button" href="#waitlist" data-launch-cta data-default-label="Join the waitlist" data-released-label="Get access">Join the waitlist</a>
             <a class="button ghost" href="#how-it-works">Read how it works</a>
           </div>
 
@@ -104,8 +108,8 @@
           <p class="eyebrow">Founding access offer</p>
           <h2>First 25 unique signups get 1 year free.</h2>
           <p>
-            Join the FocusFlow waitlist now. The founding offer is awarded server-side,
-            fairly, in real signup order.
+            Join the FocusFlow waitlist now. Founding eligibility is server-verified in real
+            signup order for the first 25 unique emails.
           </p>
           <p class="quiet" data-offer-copy>
             <strong><span data-spots-remaining>25</span> of 25</strong> founding spots remaining.
@@ -125,15 +129,6 @@
               autocomplete="email"
               placeholder="you@company.com"
               required
-            />
-
-            <label for="waitlist-name">First name (optional)</label>
-            <input
-              id="waitlist-name"
-              name="name"
-              type="text"
-              autocomplete="given-name"
-              placeholder="Alex"
             />
 
             <div class="honeypot" aria-hidden="true">
@@ -160,7 +155,7 @@
         <div class="card launch-card">
           <p class="eyebrow">Launch countdown</p>
           <h2>Launching July 1, 2026</h2>
-          <p class="launch-note">Countdown tracks midnight in America/Winnipeg.</p>
+          <p class="launch-note">Countdown tracks midnight in America/Winnipeg. When launch opens, CTA switches to Get access.</p>
 
           <div class="countdown-grid" id="countdown-grid" aria-label="Countdown to launch">
             <div class="time-box">
@@ -312,7 +307,7 @@
           </p>
         </div>
         <div class="action-row">
-          <a class="button" href="#waitlist" data-launch-cta data-default-label="Join the waitlist" data-released-label="Get product access">Join the waitlist</a>
+          <a id="final-primary-cta" class="button" href="#waitlist" data-launch-cta data-default-label="Join the waitlist" data-released-label="Get access">Join the waitlist</a>
           <a class="button ghost" href="#launch">View launch countdown</a>
         </div>
       </div>
